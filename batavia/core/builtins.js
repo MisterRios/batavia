@@ -127,8 +127,15 @@ batavia.builtins.delattr = function() {
     throw new batavia.builtins.NotImplementedError("Builtin Batavia function 'delattr' not implemented");
 };
 
-batavia.builtins.dict = function() {
-    throw new batavia.builtins.NotImplementedError("Builtin Batavia function 'dict' not implemented");
+batavia.builtins.dict = function(args, kwargs) {
+    if (args.length === 0) {
+        if (kwargs.length !== 0) {
+            return kwargs;
+        }
+        return {};
+    }
+    return args[0];
+    
 };
 
 batavia.builtins.dir = function(args) {
