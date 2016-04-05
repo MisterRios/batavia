@@ -128,14 +128,21 @@ batavia.builtins.delattr = function() {
 };
 
 batavia.builtins.dict = function(args, kwargs) {
+    var dict = {};
     if (args.length === 0) {
         if (kwargs.length !== 0) {
             return kwargs;
         }
-        return {};
+        return dict;
+    }
+    else if (Array.isArray(args[0])) {
+        for (i = 0; i < args[0].length; i++) {
+            var sub_array = args[0][i]
+            dict[sub_array[0]] = sub_array[1];
+        }
+        return dict;
     }
     return args[0];
-    
 };
 
 batavia.builtins.dir = function(args) {
