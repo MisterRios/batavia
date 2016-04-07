@@ -135,8 +135,18 @@ batavia.builtins.dict = function(args, kwargs) {
         }
         return dict;
     }
-    else if (Array.isArray(args[0])) {
-        for (i = 0; i < args[0].length; i++) {
+    // error handling
+    else if (args.length > 1) {
+        throw new batavia.builtins.TypeError("dict expected at most 1 arguments, got" + args.length)
+    }
+
+    if (Number(dict_args) === parseInt(dict_args)) {
+        throw new batavia.builtins.TypeError("'int' object is not iterable")
+    }
+
+    dict_args = args[0];
+    if (Array.isArray(dict_args)) {
+        for (i = 0; i < dict_args.length; i++) {
             var sub_array = args[0][i]
             dict[sub_array[0]] = sub_array[1];
         }
